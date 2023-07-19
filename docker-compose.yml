@@ -3,16 +3,23 @@ version: '3'
 services:
 ###> doctrine/doctrine-bundle ###
   database:
-    image: postgres:${POSTGRES_VERSION:-15}-alpine
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: pt_viajes_para_ti
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+      # POSTGRES_DB: ${POSTGRES_DB:-app}
       # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      # POSTGRES_USER: ${POSTGRES_USER:-app}
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
+      - database_data:/var/lib/mysql
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
+      ports:
+      - "3306:3306"
 ###< doctrine/doctrine-bundle ###
 
 volumes:
