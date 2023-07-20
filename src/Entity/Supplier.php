@@ -14,17 +14,19 @@ class Supplier
      * Supplier constructor.
      * @param $name
      * @param $email
-     * @param $phone_number
-     * @param $supplier_type
+     * @param $phoneNumber
+     * @param $supplierType
+     * @param $isActive
      * @param $date
      */
-    public function __construct($name, $email, $phone_number, $supplier_type, $dateTime)
+    public function __construct($name, $email, $phoneNumber, $supplierType, $isActive, $dateTime)
     {
         $this->name = $name;
         $this->email = $email;
-        $this->phone_number = $phone_number;
-        $this->supplier_type = $supplier_type;
-        $this->dateTime= $dateTime;
+        $this->phoneNumber = $phoneNumber;
+        $this->supplierType = $supplierType;
+        $this->isActive = $isActive;
+        $this->dateTime = $dateTime;
     }
 
     /**
@@ -47,17 +49,17 @@ class Supplier
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $phone_number;
+    private $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $supplier_type;
+    private $supplierType;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_active;
+    private $isActive;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
@@ -95,36 +97,36 @@ class Supplier
 
     public function getPhoneNumber(): ?string
     {
-        return $this->phone_number;
+        return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(string $phone_number): self
+    public function setPhoneNumber(string $phoneNumber): self
     {
-        $this->phone_number = $phone_number;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
 
     public function getSupplierType(): ?string
     {
-        return $this->supplier_type;
+        return $this->supplierType;
     }
 
-    public function setSupplierType(string $supplier_type): self
+    public function setSupplierType(string $supplierType): self
     {
-        $this->supplier_type = $supplier_type;
+        $this->supplierType = $supplierType;
 
         return $this;
     }
 
     public function getIsActive(): ?bool
     {
-        return $this->is_active;
+        return $this->isActive;
     }
 
-    public function setIsActive(bool $is_active): self
+    public function setIsActive(bool $isActive): self
     {
-        $this->is_active = $is_active;
+        $this->isActive = $isActive;
 
         return $this;
     }
