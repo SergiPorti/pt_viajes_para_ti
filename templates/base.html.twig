@@ -7,6 +7,10 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
+            {# <link rel="stylesheet" type="text/css" href="{{ asset('css/supplier/styles.css') | relative_path }}" />  #}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/supplier/styles.css') }}" /> 
+            {# <link rel="stylesheet" type="text/css" href="{{ asset('./styles.css') }}" />  #}
+
         {% endblock %}
 
         {% block javascripts %}

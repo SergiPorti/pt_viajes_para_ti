@@ -1,20 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SupplierController!{% endblock %}
+
+{% block title %}Proveïdors
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	{# <style> #}
+	{# .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+		    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; } #}
+	{# </style> #}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<!DOCTYPE html>
+	<html>
+		<body>
+			<h1 class="helloWorld">
+				HelloWorld
+			</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'F:/projects/pt_viajes_para_ti/src/Controller/SupplierController.php'|file_link(0) }}">src/Controller/SupplierController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'F:/projects/pt_viajes_para_ti/templates/supplier/index.html.twig'|file_link(0) }}">templates/supplier/index.html.twig</a></code></li>
-    </ul>
-</div>
+			<ul>
+				{% for supplier in suppliers %}
+					<li>{{ supplier.name }}</li>
+					<li>{{ supplier.email }}</li>
+					<li>{{ supplier.phoneNumber }}</li>
+					<li>{{ supplier.supplierType }}</li>
+					<li>{{ supplier.currentDate|date('d/m/Y') }}</li>
+				{% endfor %}
+			</ul>
+		</body>
+	</html>
 {% endblock %}
