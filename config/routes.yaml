@@ -1,4 +1,16 @@
 index:
    path: /
-   controller: App\Controller\SupplierController::index
-   methods: [GET]
+   defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: home
+
+home:
+    path: /home
+    controller: App\Controller\SupplierController::index
+    methods: [GET]
+
+   
+delete_supplier:
+    path: '/supplier/delete'
+    controller: 'App\Controller\SupplierController::deleteSupplier'
+    methods: [DELETE]

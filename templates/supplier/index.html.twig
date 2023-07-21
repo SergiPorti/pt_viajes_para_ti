@@ -4,10 +4,15 @@
 {% block title %}Proveïdors
 {% endblock %}
 
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ asset('js/supplier/index.js') }}"></script>
+{% endblock %}
 {% block body %}
+
 	{# <style> #}
 	{# .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-																																							    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; } #}
+																																																																    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; } #}
 	{# </style> #}
 
 	<!DOCTYPE html>
@@ -15,7 +20,7 @@
 		<body>
 			<main class="layout">
 				<header class="layout__header">
-					<img class="header__image" src="../assets/images/ViajesParaTiLogo.png"/>
+					<img class="header__image" src="../assets/images/ViajesParaTiLogo.png" alt="Viajes para ti logo"/>
 					<h1 class="header__title">
 						Prova tècnica Viajes Para Ti
 					</h1>
@@ -64,7 +69,7 @@
 										<a class="supplier__icon table__icon--edit" href="#">
 											<i class="fa-regular fa-pen-to-square"></i>
 										</a>
-										<a class="supplier__icon table__icon--denied" href="#">
+										<a id="delete-supplier" class="supplier__icon table__icon--denied" href="#" data-supplier-id="{{ supplier.id }}" data-delete-url="{{ path('delete_supplier', { 'page': currentPage }) }}">
 											<i class="fa-solid fa-trash"></i>
 										</a>
 									</td>
