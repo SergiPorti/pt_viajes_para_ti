@@ -6,6 +6,7 @@ use App\Entity\Supplier;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,14 +26,21 @@ class SupplierController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $suppliers = $this->getSuppliers();
+        $currentPage = $request->query->getInt('page', 1);
+
+
         $suppliersWithPaginate = $paginator->paginate(
             $suppliers,
-            $request->query->getInt('page', 1),
+            $currentPage,
             5
         );
-        // dd($suppliersWithPaginate);
+
+        if (empty($suppliersWithPaginate) && $currentPage > 1) {
+            $currentPage--;
+        }
         return $this->render('supplier/index.html.twig', [
             'suppliers' => $suppliersWithPaginate,
+            'currentPage' => $currentPage
         ]);
     }
 
@@ -71,8 +79,40 @@ class SupplierController extends AbstractController
         return $this->render('');
     }
 
-    public function deleteSupplier(Request $request): Response
+    public function deleteSupplier(Request $request, PaginatorInterface $paginator): JsonResponse
     {
-        return $this->render('');
+
+        if ($request->isMethod('DELETE')) {
+            $supplierId = (int) $request->request->get('id');
+
+            $supplierRepository = $this->entityManager->getRepository(Supplier::class);
+
+            $supplier = $supplierRepository->find($supplierId);
+
+            if (!$supplier) {
+                return new Response("No s'ha trovat cap usuari", 404);
+            }
+
+            $this->entityManager->remove($supplier);
+            $this->entityManager->flush();
+
+            $suppliers = $this->getSuppliers();
+            $currentPage = $request->query->getInt('page', 1);
+
+            $suppliersWithPaginate = $paginator->paginate(
+                $suppliers,
+                $currentPage,
+                5
+            );
+
+
+            if (empty($suppliersWithPaginate->getItems()) && $currentPage > 1) {
+                $currentPage--;
+            }
+
+            return new JsonResponse(['message' => 'Proveïdor eliminat correctament', 'currentPage' => $currentPage], 200);
+        }
+
+        return new Response('Hi ha hagut algun problema', Response::HTTP_METHOD_NOT_ALLOWED,);
     }
 }
