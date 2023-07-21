@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Supplier;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,11 +22,17 @@ class SupplierController extends AbstractController
     /**
      * @Route("/supplier", name="app_supplier")
      */
-    public function index(): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
         $suppliers = $this->getSuppliers();
+        $suppliersWithPaginate = $paginator->paginate(
+            $suppliers,
+            $request->query->getInt('page', 1),
+            5
+        );
+        // dd($suppliersWithPaginate);
         return $this->render('supplier/index.html.twig', [
-            'suppliers' => $suppliers,
+            'suppliers' => $suppliersWithPaginate,
         ]);
     }
 
@@ -44,14 +51,12 @@ class SupplierController extends AbstractController
             $supplier->setPhoneNumber($supplierData->getPhoneNumber());
             $supplier->setSupplierType($supplierData->getSupplierType());
             $supplier->setIsActive($supplierData->getIsActive());
-            $supplier->setCreatedAt($supplierData->getDateTime()); // Suponiendo que 'dateTime' es una cadena de fecha válida
+            $supplier->setCreatedAt($supplierData->getCreatedAt());
 
-            // Agregamos el objeto Supplier al array
             $suppliers[] = $supplier;
         }
 
         return $suppliers;
-        // return [];
     }
 
     public function createSupplier(Request $request): Response
