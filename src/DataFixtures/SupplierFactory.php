@@ -19,14 +19,13 @@ class SupplierFactory extends Fixture
         $faker = \Faker\Factory::create();
 
         for ($i = 0; $i < 10; $i++) {
-            $name = $faker->name;
-            $email = $faker->email;
-            $phoneNumber = $faker->phoneNumber;
-            $supplierType = $faker->randomElement(['hotel', 'pista', 'complemento']);
-            $isActive = $faker->boolean;
-            $dateTime = $faker->dateTime;
-
-            $supplier = new Supplier($name, $email, $phoneNumber, $supplierType, $isActive, $dateTime);
+            $supplier = new Supplier();
+            $supplier->setName($faker->name);
+            $supplier->setEmail($faker->email);
+            $supplier->setPhoneNumber($faker->phoneNumber());
+            $supplier->setSupplierType($faker->randomElement(['hotel', 'pista', 'complemento']));
+            $supplier->setIsActive($faker->boolean);
+            $supplier->setCreatedAt($faker->dateTime);
 
             $manager->persist($supplier);
         }

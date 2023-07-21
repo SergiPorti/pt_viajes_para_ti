@@ -5,29 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SupplierRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\SupplierRepository::class)
  */
 class Supplier
 {
-
-    /**
-     * Supplier constructor.
-     * @param $name
-     * @param $email
-     * @param $phoneNumber
-     * @param $supplierType
-     * @param $isActive
-     * @param $date
-     */
-    public function __construct($name, $email, $phoneNumber, $supplierType, $isActive, $dateTime)
-    {
-        $this->name = $name;
-        $this->email = $email;
-        $this->phoneNumber = $phoneNumber;
-        $this->supplierType = $supplierType;
-        $this->isActive = $isActive;
-        $this->dateTime = $dateTime;
-    }
 
     /**
      * @ORM\Id
@@ -64,12 +45,29 @@ class Supplier
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
-    private $dateTime;
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    /**
+     * 
+     * @param mixed $id 
+     * @return self
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
 
     public function getName(): ?string
     {
@@ -131,15 +129,35 @@ class Supplier
         return $this;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->dateTime;
+        return $this->createdAt;
     }
 
-    public function setDateTime(\DateTimeInterface $dateTime): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->dateTime = $dateTime;
+        $this->createdAt = $createdAt;
 
+        return $this;
+    }
+
+    /**
+     * 
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * 
+     * @param mixed $updatedAt 
+     * @return self
+     */
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }
