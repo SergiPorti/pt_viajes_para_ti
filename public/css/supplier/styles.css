@@ -1,0 +1,125 @@
+@font-face {
+    font-family: "Poppins";
+    src: url("../../assets/fonts/poppins/Poppins-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --main-color: #fefefe;
+    --background-color: #F2F7F9;
+    --subtitle-color: #888;
+    --title-color: #222222;
+    --description-color: #555;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    width: 100%;
+    background-color: var(--background-color);
+    overflow: hidden;
+}
+
+.layout {
+    position: relative;
+    width: 70%;
+    height: 80vh;
+    margin: 10vh auto;
+    font-family: "Poppins", Helvetica, sans-serif;
+}
+
+.layout__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__image {
+    width: 14.5rem;
+    height: auto;
+    margin-right: 1rem;
+}
+
+.header__title {
+    text-align: center;
+    flex: 1;
+    font-size: 3.8rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    color: var(--title-color);
+}
+
+.layout__create-supplier-btn {
+    margin-top: 10vh;
+    display: flex;
+    justify-content: end;
+}
+
+.create-supplier-btn__action {
+    text-decoration: none;
+    font-size: 1.8rem;
+    border: 0.2rem solid var(--description-color);
+    padding: 1.4rem;
+    border-radius: 1.2rem;
+    color: var(--subtitle-color);
+    transition: all 300ms linear;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.create-supplier-btn__action:hover {
+    background-color: var(--main-color);
+    color: var(--description-color);
+    border: 0.2rem solid var(--title-color);
+    box-shadow: 0 0 1rem 0.3rem rgba(183, 110, 121, 0.4);
+}
+
+.layout__table {
+    width: 100%;
+    margin: 3rem auto;
+    border: 1px solid black;
+    border-radius: 12px;
+}
+
+.table__row {
+    border-bottom: 2px solid res;
+    color: var(--subtitle-color);
+}
+
+.head__column-option {
+    color: var(--subtitle-color);
+    font-size: 1.6rem;
+}
+
+.table__row {
+    border-bottom: 1px solid var(--description-color);
+}
+
+.table__row:last-child {
+    border-bottom: none;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .header__title {
+        font-size: 2.8rem;
+    }
+
+    .header__image {
+        width: 10rem;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .header__title {
+        font-size: 1.8rem;
+    }
+
+    .header__image {
+        width: 8rem;
+    }
+}

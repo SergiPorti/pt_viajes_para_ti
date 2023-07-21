@@ -47,8 +47,13 @@ class SupplierRepository extends ServiceEntityRepository
         }
     }
 
+    public function getAllSuppliers()
+    {
+        return $this->createQueryBuilder('s')->getQuery()->getResult();
+    }
+
     // /**
-    //  * @return Supplier[] Returns an array of Supplier objects
+    //  * @return Supplie ar[] Returnsn array of Supplier objects
     //  */
     /*
     public function findByExampleField($value)
