@@ -80,8 +80,8 @@ body {
 .layout__table {
     width: 100%;
     margin: 3rem auto;
-    border: 1px solid black;
-    border-radius: 12px;
+    /* border: 1px solid black;
+    border-radius: 12px; */
 }
 
 .table__row {
@@ -102,7 +102,18 @@ body {
     border-bottom: none;
 }
 
+.table__empty {
+    width: 100%;
+    height: 10vh;
+}
 
+.table-empty__description {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--title-color);
+    font-weight: bold;
+    text-shadow: 1px 2px 0.4rem rgba(0, 0, 0, 0.4);
+}
 
 @media screen and (max-width: 768px) {
     .header__title {
