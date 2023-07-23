@@ -4,19 +4,11 @@
 {% block title %}Proveïdors
 {% endblock %}
 
-{% block javascripts %}
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="{{ asset('js/supplier/index.js') }}"></script>
-{% endblock %}
+
 {% block body %}
 
-	{# <style> #}
-	{# .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-																																																																    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; } #}
-	{# </style> #}
-
 	<!DOCTYPE html>
-	<html>
+	<html lang="es">
 		<body>
 			<main class="layout">
 				<header class="layout__header">
@@ -66,7 +58,7 @@
 									</td>
 									<td class="table__supplier">{{ supplier.createdAt|date('d/m/Y') }}</td>
 									<td class="table__supplier table__supplier--action">
-										<a class="supplier__icon table__icon--edit" href="#">
+										<a class="supplier__icon table__icon--edit" href="{{ path('update_supplier_view', {'id': supplier.id, 'page': currentPage}) }}">
 											<i class="fa-regular fa-pen-to-square"></i>
 										</a>
 										<a id="delete-supplier" class="supplier__icon table__icon--denied" href="#" data-supplier-id="{{ supplier.id }}" data-delete-url="{{ path('delete_supplier', { 'page': currentPage }) }}">

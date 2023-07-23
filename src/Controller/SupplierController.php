@@ -21,7 +21,7 @@ class SupplierController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/supplier", name="app_supplier")
+     * @Route("/home", name="app_supplier")
      */
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
@@ -74,9 +74,51 @@ class SupplierController extends AbstractController
         return $this->render(''); //Canviar
     }
 
-    public function updateSupplier(Request $request): Response
+    /**
+     * @Route("/update", name="update_supplier_view")
+     * @return Response
+     */
+    public function updateSupplierView(Request $request): Response
     {
-        return $this->render('');
+        $id = $request->query->get('id');
+        $currentPage = $request->query->get('page');
+        $supplierRepository = $this->entityManager->getRepository(Supplier::class);
+
+        $supplier = $supplierRepository->find($id);
+
+        return $this->render('supplier/update_supplier.html.twig', ['supplier' => $supplier, 'page' => $currentPage]);
+    }
+
+
+    /**
+     * @Route("/update/supplier", name="update_supplier", methods={"PUT"})
+     * @return Response
+     */
+    public function updateSupplier(Request $request): JsonResponse
+    {
+
+
+        if ($request->isMethod('PUT')) {
+            $supplierId = (int) $request->request->get('id');
+            $supplierRepository = $this->entityManager->getRepository(Supplier::class);
+            $supplier = $supplierRepository->find($supplierId);
+
+            if (!$supplier) {
+                return new Response("No s'ha trovat cap usuari", 404);
+            }
+
+            $supplier->setName($request->request->get('name'));
+            $supplier->setEmail($request->request->get('email'));
+            $supplier->setPhoneNumber($request->request->get('phoneNumber'));
+            $supplier->setSupplierType($request->request->get('supplierType'));
+            $supplier->setIsActive(filter_var($request->request->get('isActive'), FILTER_VALIDATE_BOOLEAN));
+            $supplier->setUpdatedAt(new \DateTime());
+
+            $this->entityManager->flush();
+            return new JsonResponse(['message' => 'S\'ha actualitzat correctament el proveïdor'], 200);
+        }
+
+        return new Response('Hi ha hagut algun problema', Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
     public function deleteSupplier(Request $request, PaginatorInterface $paginator): JsonResponse
@@ -113,6 +155,6 @@ class SupplierController extends AbstractController
             return new JsonResponse(['message' => 'Proveïdor eliminat correctament', 'currentPage' => $currentPage], 200);
         }
 
-        return new Response('Hi ha hagut algun problema', Response::HTTP_METHOD_NOT_ALLOWED,);
+        return new Response('Hi ha hagut algun problema', Response::HTTP_METHOD_NOT_ALLOWED);
     }
 }

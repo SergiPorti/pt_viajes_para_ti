@@ -1,0 +1,57 @@
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-6.1.2-web/css/all.min.css') }}" type="text/css"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/supplier/update_supplier.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/supplier/styles.css') }}"/>
+{% endblock %}
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ asset('js/supplier/update_supplier.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+	<!DOCTYPE html>
+	<html lang="es">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		</head>
+		<body>
+			<main class="layout">
+				<header class="layout__header">
+					<img class="header__image" src="../assets/images/ViajesParaTiLogo.png" alt="Viajes para ti logo"/>
+					<h1 class="header__title">
+						Prova tècnica Viajes Para Ti
+					</h1>
+				</header>
+				<div class="layout__form">
+					<form class="form__field">
+						<label class="form__label" for="name">Nom:</label>
+						<input class="form__input" type="text" id="name" name="name" value="{{ supplier.name }}"/>
+
+						<label class="form__label" for="email">Email:</label>
+						<input class="form__input" type="email" id="email" name="email" value="{{ supplier.email }}"/>
+
+						<label class="form__label" for="phoneNumber">Telèfono:</label>
+						<input class="form__input" type="text" id="phoneNumber" name="phoneNumber" value="{{ supplier.phoneNumber }}"/>
+
+						<label class="form__label" for="supplierType">Tipus de proveïdor:</label>
+						<select class="form__select" id="supplierType" name="supplierType">
+							<optgroup class="form__optgroup" label="Tipo">
+								<option class="form__group-option" value="hotel" {% if supplier.supplierType == 'hotel' %} selected {% endif %}>Hotel</option>
+								<option class="form__group-option" value="pista" {% if supplier.supplierType == 'pista' %} selected {% endif %}>Pista</option>
+								<option class="form__group-option" value="complemento" {% if supplier.supplierType == 'complemento' %} selected {% endif %}>Complemento</option>
+							</optgroup>
+						</select>
+						<div class="form__input--checkbox">
+							<label class="form__label form__label--checkbox" for="isActive">Està actiu?</label>
+							<input class="input__checkbox" type="checkbox" id="isActive" name="isActive" {% if supplier.isActive %} checked {% endif %} value="isActive"/>
+						</div>
+						<a class="form__button create-supplier-btn__action" href="#" id="update-button">Actualizar</a>
+					</form>
+				</div>
+			</main>
+		</body>
+	</html>
+
+{% endblock %}
