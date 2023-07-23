@@ -26,6 +26,11 @@ update_supplier:
     methods: [PUT]
 
 create_supplier:
-    path: '/create'
+    path: '/create/supplier'
     controller: 'App\Controller\SupplierController::createSupplier'
     methods: [POST]
+
+create_supplier_view:
+    path: '/create'
+    controller: 'App\Controller\SupplierController::createSupplierView'
+    methods: [GET]

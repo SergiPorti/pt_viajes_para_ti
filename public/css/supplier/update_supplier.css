@@ -28,7 +28,6 @@
 
 .form__input:focus {
     outline: none;
-    overflow: hidden;
     border: 2px solid gray;
     background-color: rgba(241, 236, 236, 0.4);
     box-shadow: 0 0 1rem rgba(21, 0, 116, 0.4);
@@ -60,7 +59,6 @@
 
 .form__select:focus {
     outline: none;
-    overflow: hidden;
     border: 1px solid gray;
     background-color: rgba(241, 236, 236, 0.4);
     box-shadow: 0 0 1rem rgba(21, 0, 116, 0.4);
@@ -68,7 +66,6 @@
 
 .form__group-option {
     display: block;
-    overflow: hidden;
     height: 0;
     transition: height 0.3s ease;
 }
@@ -81,6 +78,10 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+
+.layout__footer {
+    text-align: right;
 }
 
 @media screen and (max-width: 768px) {

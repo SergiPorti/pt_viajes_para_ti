@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log(xhr.responseText)
-                    alert(`Error al eliminar el proveïdor: ${textStatus} ${errorThrown}`)
+                    alert(`Error al eliminar el proveïdor: ${xhr.responseText} ${textStatus} ${errorThrown}`)
                     setTimeout(function () {
                         window.location.reload();
                     }, 500);

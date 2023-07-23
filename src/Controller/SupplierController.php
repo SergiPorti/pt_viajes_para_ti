@@ -67,12 +67,7 @@ class SupplierController extends AbstractController
         return $suppliers;
     }
 
-    public function createSupplier(Request $request): Response
-    {
-        // $entityManager->persist();
-        // $entityManager->flush();
-        return $this->render(''); //Canviar
-    }
+
 
     /**
      * @Route("/update", name="update_supplier_view")
@@ -87,6 +82,46 @@ class SupplierController extends AbstractController
         $supplier = $supplierRepository->find($id);
 
         return $this->render('supplier/update_supplier.html.twig', ['supplier' => $supplier, 'page' => $currentPage]);
+    }
+
+    /**
+     * @Route("/create", name="create_supplier_view")
+     * @return Response
+     */
+    public function createSupplierView(Request $request): Response
+    {
+        $page = $request->query->get('page');
+
+        return $this->render('supplier/create_supplier.html.twig', ['page' => $page]);
+    }
+
+    /**
+     * @Route("/create/supplier", name="create_supplier", methods={"POST"})
+     * @return Response
+     */
+    public function createSupplier(Request $request): Response
+    {
+        if ($request->isMethod('POST')) {
+
+            $supplier = new Supplier();
+
+            $supplier->setName($request->request->get('name'));
+            $supplier->setEmail($request->request->get('email'));
+            $supplier->setPhoneNumber($request->request->get('phoneNumber'));
+            $supplier->setSupplierType($request->request->get('supplierType'));
+            $supplier->setIsActive(filter_var($request->request->get('isActive'), FILTER_VALIDATE_BOOLEAN));
+            $supplier->setCreatedAt(new \DateTime());
+
+            try {
+                $this->entityManager->persist($supplier);
+                $this->entityManager->flush();
+                return new JsonResponse(['message' => 'S\'ha creat correctament el proveïdor'], Response::HTTP_CREATED);
+            } catch (\Exception $e) {
+                return new JsonResponse(['message' => 'Hi ha hagut un error creant el proveïdor ', 'error_message' => $e], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new Response('Hi ha hagut algun problema', Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
 
@@ -104,7 +139,7 @@ class SupplierController extends AbstractController
             $supplier = $supplierRepository->find($supplierId);
 
             if (!$supplier) {
-                return new Response("No s'ha trovat cap usuari", 404);
+                return new Response("No s'ha trovat cap usuari", Response::HTTP_NOT_FOUND);
             }
 
             $supplier->setName($request->request->get('name'));
@@ -114,8 +149,12 @@ class SupplierController extends AbstractController
             $supplier->setIsActive(filter_var($request->request->get('isActive'), FILTER_VALIDATE_BOOLEAN));
             $supplier->setUpdatedAt(new \DateTime());
 
-            $this->entityManager->flush();
-            return new JsonResponse(['message' => 'S\'ha actualitzat correctament el proveïdor'], 200);
+            try {
+                $this->entityManager->flush();
+                return new JsonResponse(['message' => 'S\'ha actualitzat correctament el proveïdor'], Response::HTTP_CREATED);
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Hi ha hagut un error editant el proveïdor ', 'error_message' => $e], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         }
 
         return new Response('Hi ha hagut algun problema', Response::HTTP_METHOD_NOT_ALLOWED);
@@ -132,7 +171,7 @@ class SupplierController extends AbstractController
             $supplier = $supplierRepository->find($supplierId);
 
             if (!$supplier) {
-                return new Response("No s'ha trovat cap usuari", 404);
+                return new Response("No s'ha trovat cap usuari", Response::HTTP_NOT_FOUND);
             }
 
             $this->entityManager->remove($supplier);
