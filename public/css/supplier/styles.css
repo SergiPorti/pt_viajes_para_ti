@@ -58,9 +58,8 @@ body {
 }
 
 .layout__create-supplier-btn {
-    margin-top: 10vh;
-    display: flex;
-    justify-content: end;
+    text-align: end;
+    margin-top: 8vh;
 }
 
 .create-supplier-btn__action {
@@ -83,8 +82,7 @@ body {
 
 .layout__table {
     width: 100%;
-    margin: 3rem auto;
-    overflow-x: auto;
+    margin: 5rem auto;
 }
 
 .table__row {
@@ -98,8 +96,6 @@ body {
     font-size: 1.8rem;
     width: calc(100% / 7);
 }
-
-
 
 .table__empty {
     width: 100%;
@@ -197,6 +193,13 @@ body {
 .footer__copy {
     font-size: 1.2rem;
     text-align: center;
+}
+
+
+@media screen and (max-width: 1000px) {
+    body {
+        overflow: auto;
+    }
 }
 
 @media screen and (max-width: 768px) {

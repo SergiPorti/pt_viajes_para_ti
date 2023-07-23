@@ -20,63 +20,60 @@
 				<section class="layout__create-supplier-btn">
 					<a class="create-supplier-btn__action" href="{{ path('create_supplier_view', {'page': currentPage}) }}">Crear nou proveïdor</a>
 				</section>
-				<div class="table-responsive">
-					<table class="layout__table">
-						<thead class="table__head">
-							<tr class="table__row">
-								<th class="head__column-option">Nom</th>
-								<th class="head__column-option">Email</th>
-								<th class="head__column-option">Numero telèfon</th>
-								<th class="head__column-option">Tipus de Proveïdor</th>
-								<th class="head__column-option">És actiu</th>
-								<th class="head__column-option">Data creació</th>
-								<th class="head__column-option">Accions</th>
+				<table class="layout__table">
+					<thead class="table__head">
+						<tr class="table__row">
+							<th class="head__column-option">Nom</th>
+							<th class="head__column-option">Email</th>
+							<th class="head__column-option">Numero telèfon</th>
+							<th class="head__column-option">Tipus de Proveïdor</th>
+							<th class="head__column-option">És actiu</th>
+							<th class="head__column-option">Data creació</th>
+							<th class="head__column-option">Accions</th>
+						</tr>
+					</thead>
+					<tbody class="table__body">
+						{% if suppliers is empty %}
+							<tr class="table__empty">
+								<td class="table-empty__description" colspan="7">
+									Crea un proveïdor per veure la informació
+								</td>
 							</tr>
-						</thead>
-						<tbody class="table__body">
-							{% if suppliers is empty %}
-								<tr class="table__empty">
-									<td class="table-empty__description" colspan="7">
-										Crea un proveïdor per veure la informació
+						{% else %}
+							<tr>
+								<td class="table__divider" colspan="7"></td>
+							</tr>
+							{% for supplier in suppliers %}
+								<tr class="table__row">
+									<td class="table__supplier">{{ supplier.name }}</td>
+									<td class="table__supplier">{{ supplier.email }}</td>
+									<td class="table__supplier">{{ supplier.phoneNumber }}</td>
+									<td class="table__supplier">{{ supplier.supplierType }}</td>
+									<td class="table__supplier">
+										{% if supplier.isActive %}
+											<i class="fa-solid fa-square-check table__icon table__icon--verified"></i>
+										{% else %}
+											<i class="fa-solid fa-square-xmark table__icon table__icon--denied"></i>
+										{% endif %}
+									</td>
+									<td class="table__supplier">{{ supplier.createdAt|date('d/m/Y') }}</td>
+									<td class="table__supplier table__supplier--action">
+										<a class="supplier__icon table__icon--edit" href="{{ path('update_supplier_view', {'id': supplier.id, 'page': currentPage}) }}">
+											<i class="fa-regular fa-pen-to-square"></i>
+										</a>
+										<a id="delete-supplier" class="supplier__icon table__icon--denied" href="#" data-supplier-id="{{ supplier.id }}" data-delete-url="{{ path('delete_supplier', { 'page': currentPage }) }}">
+											<i class="fa-solid fa-trash"></i>
+										</a>
 									</td>
 								</tr>
-							{% else %}
 								<tr>
 									<td class="table__divider" colspan="7"></td>
 								</tr>
-								{% for supplier in suppliers %}
-									<tr class="table__row">
-										<td class="table__supplier">{{ supplier.name }}</td>
-										<td class="table__supplier">{{ supplier.email }}</td>
-										<td class="table__supplier">{{ supplier.phoneNumber }}</td>
-										<td class="table__supplier">{{ supplier.supplierType }}</td>
-										<td class="table__supplier">
-											{% if supplier.isActive %}
-												<i class="fa-solid fa-square-check table__icon table__icon--verified"></i>
-											{% else %}
-												<i class="fa-solid fa-square-xmark table__icon table__icon--denied"></i>
-											{% endif %}
-										</td>
-										<td class="table__supplier">{{ supplier.createdAt|date('d/m/Y') }}</td>
-										<td class="table__supplier table__supplier--action">
-											<a class="supplier__icon table__icon--edit" href="{{ path('update_supplier_view', {'id': supplier.id, 'page': currentPage}) }}">
-												<i class="fa-regular fa-pen-to-square"></i>
-											</a>
-											<a id="delete-supplier" class="supplier__icon table__icon--denied" href="#" data-supplier-id="{{ supplier.id }}" data-delete-url="{{ path('delete_supplier', { 'page': currentPage }) }}">
-												<i class="fa-solid fa-trash"></i>
-											</a>
-										</td>
-									</tr>
-									<tr>
-										<td class="table__divider" colspan="7"></td>
-									</tr>
-								{% endfor %}
-							{% endif %}
-						</tbody>
+							{% endfor %}
+						{% endif %}
 					</tbody>
-				</table>
-			</div>
-
+				</tbody>
+			</table>
 			<footer class="layout__footer">
 				<div class="footer_pagination">{{ knp_pagination_render(suppliers) }}</div>
 				<p class="footer__copy">
