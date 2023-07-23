@@ -4,8 +4,9 @@ Prova tècnica per a la empresa Viajes Para Ti.
 # Informacio
 
 Està construït de 0, és a dir, amb un projecte de symfony clean i, tot fet a mà.
-Sí que he anat afegint algunes dependències que eren necessàries per poder funcionar correctament tot. 
-Primer crear la BD amb la comanda
+Sí que he anat afegint algunes dependències que eren necessàries per poder funcionar correctament tot.
+
+Primer pas és crear la BD amb la comanda
 > php bin/console doctrine:database:create
 
 Deixaré encara així la bd per si es vol importar en el repositori  
