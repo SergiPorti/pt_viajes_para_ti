@@ -18,4 +18,6 @@ Si no es vol eliminar el contingut ja de la base de dades
 
 Jo per iniciar el servidor he utilizat Laragon i el servidor en php ja que el servidor que em creava symfony, no em funcionava.
 > php -S localhost:8080 -t public
+
+Servidor amb symfony
 > symfony serve
