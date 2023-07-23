@@ -14,3 +14,18 @@ delete_supplier:
     path: '/supplier/delete'
     controller: 'App\Controller\SupplierController::deleteSupplier'
     methods: [DELETE]
+
+update_supplier_view:
+    path: '/update'
+    controller: 'App\Controller\SupplierController::updateSupplierView'
+    methods: [GET]
+
+update_supplier:
+    path: '/update/supplier'
+    controller: 'App\Controller\SupplierController::updateSupplier'
+    methods: [PUT]
+
+create_supplier:
+    path: '/create'
+    controller: 'App\Controller\SupplierController::createSupplier'
+    methods: [POST]
