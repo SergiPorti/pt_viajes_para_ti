@@ -9,7 +9,7 @@ Sí que he anat afegint algunes dependències que eren necessàries per poder fu
 Primer pas és crear la BD amb la comanda
 > php bin/console doctrine:database:create
 
-Deixaré encara així la bd per si es vol importar en el repositori  
+Deixaré encara així una bd amb algunes dades per si es vol utilitzar, esta en el repositori, en cas que no, no hi ha problema.  
 Hi ha un factory per carregar dades fake en cas de que es vulgui fer.
 > php bin/console doctrine:fixtures:load
 
