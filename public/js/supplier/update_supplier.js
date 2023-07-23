@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
+function handleUpdateSupplier() {
+
     const updateButton = document.getElementById("update-button");
 
     updateButton.addEventListener('click', function (e) {
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let name = document.getElementById('name').value
         const email = document.getElementById('email').value
-        const phoneNumber = document.getElementById('phoneNumber').value
+        let phoneNumber = document.getElementById('phoneNumber').value
         const supplierType = document.getElementById('supplierType').value
         const isActive = document.getElementById('isActive').checked
 
@@ -43,16 +44,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     window.location.href = `/home?page=${currentPage}`;
                 }, 500);
             },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log(xhr.responseText)
-                alert(`Error al actualitzar el proveïdor: ${textStatus} ${errorThrown}`)
+            error: function (response) {
+                console.log(response.error_message)
+                alert(response.error, response.error_message)
                 setTimeout(function () {
                     window.location.reload();
                 }, 500);
             }
         });
     });
-});
+
+}
 
 function validateForm(phoneNumber, supplierType, isActive) {
     return phoneNumber.length <= 20 && supplierType.length <= 20 && typeof isActive === 'boolean' && validateSupplierType(supplierType);
@@ -88,3 +90,7 @@ function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
+
+export { escapeString, isValidEmail, validateForm };
+
+document.addEventListener('DOMContentLoaded', handleUpdateSupplier);
