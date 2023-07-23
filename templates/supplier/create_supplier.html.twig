@@ -1,11 +1,12 @@
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-6.1.2-web/css/all.min.css') }}" type="text/css"/>
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/supplier/update_supplier.css') }}"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/supplier/styles.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/supplier/update_supplier.css') }}"/>
 {% endblock %}
+
 {% block javascripts %}
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="{{ asset('js/supplier/update_supplier.js') }}" type="module" defer></script>
+	<script src="{{ asset('js/supplier/create_supplier.js') }}" type="module" defer></script>
 {% endblock %}
 
 {% block body %}
@@ -27,27 +28,27 @@
 				<div class="layout__form">
 					<form class="form__field">
 						<label class="form__label" for="name">Nom:</label>
-						<input class="form__input" type="text" id="name" name="name" value="{{ supplier.name }}"/>
+						<input class="form__input" type="text" id="name" name="name" value=""/>
 
 						<label class="form__label" for="email">Email:</label>
-						<input class="form__input" type="email" id="email" name="email" value="{{ supplier.email }}"/>
+						<input class="form__input" type="email" id="email" name="email" value=""/>
 
 						<label class="form__label" for="phoneNumber">Telèfono:</label>
-						<input class="form__input" type="text" id="phoneNumber" name="phoneNumber" value="{{ supplier.phoneNumber }}"/>
+						<input class="form__input" type="text" id="phoneNumber" name="phoneNumber" value=""/>
 
 						<label class="form__label" for="supplierType">Tipus de proveïdor:</label>
 						<select class="form__select" id="supplierType" name="supplierType">
 							<optgroup class="form__optgroup" label="Tipo">
-								<option class="form__group-option" value="hotel" {% if supplier.supplierType == 'hotel' %} selected {% endif %}>Hotel</option>
-								<option class="form__group-option" value="pista" {% if supplier.supplierType == 'pista' %} selected {% endif %}>Pista</option>
-								<option class="form__group-option" value="complemento" {% if supplier.supplierType == 'complemento' %} selected {% endif %}>Complemento</option>
+								<option class="form__group-option" value="hotel">Hotel</option>
+								<option class="form__group-option" value="pista">Pista</option>
+								<option class="form__group-option" value="complemento">Complemento</option>
 							</optgroup>
 						</select>
 						<div class="form__input--checkbox">
 							<label class="form__label form__label--checkbox" for="isActive">Està actiu?</label>
-							<input class="input__checkbox" type="checkbox" id="isActive" name="isActive" {% if supplier.isActive %} checked {% endif %} value="isActive"/>
+							<input class="input__checkbox" type="checkbox" id="isActive" name="isActive" value="isActive"/>
 						</div>
-						<a class="form__button create-supplier-btn__action" href="#" id="update-button">Actualizar</a>
+						<a class="form__button create-supplier-btn__action" href="#" id="create-button">Crear</a>
 					</form>
 				</div>
 				<footer class="layout__footer">
