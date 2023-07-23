@@ -16,5 +16,6 @@ Hi ha un factory per carregar dades fake en cas de que es vulgui fer.
 Si no es vol eliminar el contingut ja de la base de dades
 > php bin/console doctrine:fixtures:load --append  
 
-Jo per iniciar el servidor he utilizat Laragon i el servidor en php
+Jo per iniciar el servidor he utilizat Laragon i el servidor en php ja que el servidor que hem creava symfony, no hem funcionava.
 > php -S localhost:8080 -t public
+> symfony serve
